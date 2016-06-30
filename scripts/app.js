@@ -2,8 +2,7 @@
 (function() {
   'use strict';
 
-  // Insert injected weather forecast here
-
+  var weatherAPIUrlBase = 'https://publicdata-weather.firebaseio.com/';
 
   var app = {
     isLoading: true,
@@ -23,30 +22,30 @@
    *
    ****************************************************************************/
 
+  /* Event listener for refresh button */
   document.getElementById('butRefresh').addEventListener('click', function() {
-    // Refresh all of the forecasts
     app.updateForecasts();
   });
 
+  /* Event listener for add new city button */
   document.getElementById('butAdd').addEventListener('click', function() {
     // Open/show the add new city dialog
     app.toggleAddDialog(true);
   });
 
+  /* Event listener for add city button in add city dialog */
   document.getElementById('butAddCity').addEventListener('click', function() {
-    // Add the newly selected city
     var select = document.getElementById('selectCityToAdd');
     var selected = select.options[select.selectedIndex];
     var key = selected.value;
     var label = selected.textContent;
     app.getForecast(key, label);
     app.selectedCities.push({key: key, label: label});
-    // Remember to save user preferences here
     app.toggleAddDialog(false);
   });
 
+  /* Event listener for cancel button in add city dialog */
   document.getElementById('butAddCancel').addEventListener('click', function() {
-    // Close the add new city dialog
     app.toggleAddDialog(false);
   });
 
@@ -126,8 +125,7 @@
 
   // Gets a forecast for a specific city and update the card with the data
   app.getForecast = function(key, label) {
-    var url = 'https://publicdata-weather.firebaseio.com/';
-    url += key + '.json';
+    var url = weatherAPIUrlBase + key + '.json';
     // Make the XHR to get the data, then update the card
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
@@ -136,7 +134,6 @@
           var response = JSON.parse(request.response);
           response.key = key;
           response.label = label;
-          app.hasRequestPending = false;
           app.updateForecastCard(response);
         }
       }
@@ -152,39 +149,5 @@
       app.getForecast(key);
     });
   };
-
-  var fakeForecast = {
-    key: 'newyork',
-    label: 'New York, NY',
-    currently: {
-      time: 1453489481,
-      summary: 'Clear',
-      icon: 'partly-cloudy-day',
-      temperature: 60,
-      apparentTemperature: 65,
-      precipProbability: 0.25,
-      humidity: 0.75,
-      windBearing: 125,
-      windSpeed: 1.50
-    },
-    daily: {
-      data: [
-        {icon: 'clear-day', temperatureMax: 60, temperatureMin: 50},
-        {icon: 'rain', temperatureMax: 60, temperatureMin: 50},
-        {icon: 'snow', temperatureMax: 60, temperatureMin: 50},
-        {icon: 'sleet', temperatureMax: 60, temperatureMin: 50},
-        {icon: 'fog', temperatureMax: 60, temperatureMin: 50},
-        {icon: 'wind', temperatureMax: 60, temperatureMin: 50},
-        {icon: 'partly-cloudy-day', temperatureMax: 60, temperatureMin: 50}
-      ]
-    }
-  };
-  // Uncomment the line below to test the app with fake data
-  // app.updateForecastCard(fakeForecast);
-
-  // Add code to save the users list of subscribed cities here
-
-  // Add code to check if the user has any subscribed cities, and render 
-  // those or the default data here.
 
 })();

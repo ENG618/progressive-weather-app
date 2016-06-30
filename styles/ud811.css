@@ -78,7 +78,8 @@ body {
   -webkit-transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
   transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
   transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s, -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s; }
+  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s, -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+  z-index: 1000; }
   .header .headerButton {
     width: 24px;
     height: 24px;
@@ -89,7 +90,8 @@ body {
     -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
     transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
     border: none;
-    outline: none; }
+    outline: none;
+    cursor: pointer; }
   .header #butRefresh {
     background: url(/images/ic_refresh_white_24px.svg) center center no-repeat; }
   .header #butAdd {
@@ -110,7 +112,7 @@ body {
   position: fixed;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
-  .loader #spinner {
+  .loader #ud811Spinner {
     box-sizing: border-box;
     stroke: #673AB7;
     stroke-width: 3px;
